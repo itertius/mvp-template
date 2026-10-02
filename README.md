@@ -7,7 +7,8 @@ backend. Students create or connect a separate GitHub repository for their MVP.
 Start with [skills.md](skills.md), then read [handbook.md](handbook.md). The
 lesson sequence is in [docs/sessions.md](docs/sessions.md), MCP guidance is in
 [docs/mcp.md](docs/mcp.md), and the deployment blueprint is in
-[docs/deployment.md](docs/deployment.md).
+[docs/deployment.md](docs/deployment.md). Reusable prompt templates are in
+[docs/prompt-framework.md](docs/prompt-framework.md).
 
 The reference delivery path is GitHub → Vercel → Supabase. Supabase MCP helps an
 AI assistant inspect and manage the database project; Vercel MCP helps it inspect

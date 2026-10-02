@@ -11,7 +11,9 @@ Docker stack, database credentials, or deployment artifacts.
 3. Read [handbook.md](handbook.md) for TA practice and [docs/sessions.md](docs/sessions.md)
    for the lesson sequence.
 4. Read [docs/mcp.md](docs/mcp.md) before using Supabase or Vercel MCP.
-5. Read [docs/deployment.md](docs/deployment.md) before proposing a deployment.
+5. Read [docs/prompt-framework.md](docs/prompt-framework.md) before writing an
+   implementation prompt.
+6. Read [docs/deployment.md](docs/deployment.md) before proposing a deployment.
 
 ## Repository contract
 
@@ -25,8 +27,8 @@ Docker stack, database credentials, or deployment artifacts.
 
 ## Teaching workflow
 
-For each task, use: **context → acceptance → smallest change → inspect → verify →
-explain**.
+For each task, use the [prompt framework](docs/prompt-framework.md): **context →
+outcome → constraints → acceptance → smallest change → inspect → verify → explain**.
 
 Ask the student to state the target user, problem, and one observable behavior.
 Have the agent inspect the student’s application repository before editing. Keep

@@ -1,0 +1,99 @@
+# Prompt framework for agentic MVP work
+
+Use this framework to turn a vague request into a small, verifiable agent task.
+A good prompt gives the agent enough context to act without inventing product
+scope, credentials, files, or success criteria.
+
+## The seven blocks
+
+1. **Role** — tell the agent whether it is planning, building, debugging, reviewing,
+   or deploying.
+2. **Context** — identify the repository, current behavior, target user, and
+   relevant evidence. Ask it to inspect before editing.
+3. **Outcome** — describe one user-visible result in a single sentence.
+4. **Constraints** — name the stack, files or data to preserve, security rules,
+   scope limits, and required compatibility.
+5. **Acceptance** — define the success path, failure path, and observable proof.
+6. **Process** — require a plan, focused diff, explanation, and checks. For risky
+   operations, require confirmation before mutation.
+7. **Handoff** — request changed files, commands run, results, limitations, and
+   the next safe step.
+
+## Base template
+
+```text
+Role: You are helping with [plan/build/debug/review/deploy].
+Context: Inspect [repository/path]. The current behavior is [fact]. The target
+user is [user] and the primary workflow is [workflow].
+Outcome: Make [one observable result].
+Constraints: Use [stack]. Preserve [data/API/files]. Keep scope to [boundary].
+Never expose [secrets].
+Acceptance: [success case]. [invalid or failure case]. Evidence must be [check,
+URL, response, log, or screenshot].
+Process: Inspect first. State a short plan. Make the smallest complete change.
+Review the diff. Run focused checks. Do not perform destructive or production
+mutations without my confirmation.
+Handoff: Report files changed, checks and results, limitations, and the next step.
+```
+
+## Task modes
+
+### Plan
+
+```text
+Inspect the repository and identify the smallest change that satisfies [criterion].
+Do not edit files. List the owning files, risks, acceptance checks, and one
+non-goal. Stop for clarification only if a missing fact changes the design.
+```
+
+### Build
+
+```text
+Implement only [criterion] in the existing application. Reuse its current seams.
+Preserve the API and data described in [reference]. Add validation for [invalid
+case]. Show the diff and run [check command].
+```
+
+### Debug
+
+```text
+The exact failure is: [command/URL/response/log]. Inspect before changing code.
+Rank likely causes, test the cheapest safe hypothesis, and fix only the confirmed
+cause. Do not reset data or rewrite unrelated files. Prove the original failure is
+resolved and report what remains uncertain.
+```
+
+### Review
+
+```text
+Review this diff against [acceptance criteria]. Prioritize correctness, security,
+data loss, and broken user workflows. For each finding give severity, file and
+line, evidence, and a focused fix. If no finding exists, state what you verified
+and what you could not verify.
+```
+
+### Deploy
+
+```text
+Inspect the authorized GitHub, Vercel, and Supabase project context first. Confirm
+the target project and branch. Check the preview build, environment variables by
+name (never print values), health endpoint, primary workflow, and persistence.
+Require confirmation before production deployment, environment changes, domains,
+schema changes, or data mutations. Report URLs, checks, and rollback target.
+```
+
+## MCP guardrails
+
+MCP tools provide external context and actions; they do not replace application
+code. Start Supabase MCP read-only. Use Vercel MCP to inspect previews and logs.
+Never paste service-role keys, OAuth tokens, private keys, or full environment
+files into a prompt. Confirm the project reference before querying or mutating.
+Require human approval for production, schema, deployment, domain, environment,
+or data changes.
+
+## Prompt quality check
+
+Before sending, ask: Is there one outcome? Can success be observed? Did I name what
+must remain unchanged? Did I provide the current evidence? Is the requested action
+reversible? Does the agent know when to stop? If any answer is no, tighten the
+prompt before asking for implementation.

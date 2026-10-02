@@ -20,6 +20,9 @@ Supabase.
 
 Use: **describe → plan → change → inspect → verify → explain**.
 
+Use [the prompt framework](docs/prompt-framework.md) to turn each exercise into a
+scoped request with observable acceptance and a safe handoff.
+
 Ask the student to name the target user, problem, and one observable behavior.
 Have the agent inspect the app repository before changing it. Review the complete
 diff with the student. Test the success case, invalid input, and a failure state.
